@@ -1,4 +1,4 @@
-package com.demo;
+package com.demo.ws.client;
 
 import com.demo.ws.client.EchoServiceClient;
 import org.springframework.context.annotation.Bean;
