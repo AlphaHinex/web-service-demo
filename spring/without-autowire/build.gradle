@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
+            credentials(PasswordCredentials) {
+                username = project.findProperty("gpr.user") ?: System.getenv("GH_OWNER")
+                password = project.findProperty("gpr.reader") ?: System.getenv("GH_PKG_READER")
+            }
+        }
+    }
+    dependencies {
+        classpath 'io.github.spring-roll:roll-dev-configs:0.0.7.RELEASE'
+    }
+}
+
+plugins {
+    id "io.freefair.lombok" version "4.1.6"
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
+        credentials(PasswordCredentials) {
+            username = project.findProperty("gpr.user") ?: System.getenv("GH_OWNER")
+            password = project.findProperty("gpr.reader") ?: System.getenv("GH_PKG_READER")
+        }
+    }
+}
+
+group = 'io.github.alphahinex.demo.ws.spring'
+version = '0.0.1-SNAPSHOT'
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+apply plugin: "io.freefair.lombok"
+
+apply from: this.getClass().getClassLoader().getResource("META-INF/configs/dependencies.gradle")
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    annotationProcessor platform("org.springframework.boot:spring-boot-dependencies:${versions.spring_boot}")
+         implementation platform("org.springframework.boot:spring-boot-dependencies:${versions.spring_boot}")
+
+    annotationProcessor libraries.lombok,
+                        libraries.spring_boot_configuration_processor
+
+            compileOnly libraries.lombok,
+                        libraries.spring_boot_starter_logging
+
+         implementation libraries.roll_web
+
+     testImplementation libraries.spring_boot_starter_test
+     testImplementation libraries.h2
+     testImplementation libraries.roll_test
+}
