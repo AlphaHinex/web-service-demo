@@ -8,7 +8,7 @@ import javax.jws.WebService;
 @WebService
 public class EchoServiceEndpoint {
 
-    @WebMethod
+    @WebMethod(action = "http://server.ws.demo.com/echo")
     public String echo(String content) {
         return StringUtil.isBlank(content) ? "echo nothing" : "echo " + content;
     }
