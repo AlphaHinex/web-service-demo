@@ -5,7 +5,8 @@ import javax.jws.WebService;
 
 @WebService(
         targetNamespace = "http://server.ws.demo.com/",
-        name = "EchoServiceEndpoint"
+        name = "EchoServiceEndpoint",
+        portName = "EchoServiceEndpointPort"
 )
 public interface EchoServiceClient {
 
